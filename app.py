@@ -56,13 +56,14 @@ def _add_project():
     session = Session(engine)
     data = request.get_json()
     logging.info("Adding a new project %s", data)
-    proj = project.Project(
-        name=data["name"],
-        path=data["path"]
-    )
+    kwargs = {
+        "name": data["name"],
+        "path": data["path"]
+    }
+    proj = project.Project(**kwargs)
     session.add(proj)
     session.commit()
-
+    return f"New project created with parameters {kwargs}."
 
 @_log_call
 def _get_projects():
