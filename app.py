@@ -71,10 +71,7 @@ def _add_project():
 @_log_call
 def _get_projects():
     session = Session(engine)
-    params = {
-        "name": request.args.get("name"),
-        "path": request.args.get("path")
-    }
+    params = {k: request.args[k] for k in ("name", "path") if k in request.args}
     matches = session.query(project.Project).filter_by(**params)
     return "\n".join(": ".join([p.name, p.path]) for p in matches)
 
