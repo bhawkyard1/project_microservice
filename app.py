@@ -14,15 +14,14 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-def handleUncaughtException(type, value, tb):
-    """ Log uncaught exceptions. Ideally I would like to limit this to core modules in the toolset, because at the
-        moment this will log absolutely any exception fromm anywhere, as soon as this module is imported.
+def handle_uncaught_exception(type, value, tb):
+    """ Log uncaught exceptions, then raise as normal.
     """
     logging.error("Unhandled Exception: %s", "".join(traceback.format_exception(type, value, tb)))
     sys.__excepthook__(type, value, tb)
 
 
-sys.excepthook = handleUncaughtException
+sys.excepthook = handle_uncaught_exception
 
 logging.info("Creating sqlalchemy engine...")
 engine = create_engine("sqlite:///test.db", echo=True, future=True)
