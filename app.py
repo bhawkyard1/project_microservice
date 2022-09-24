@@ -40,7 +40,9 @@ def _log_call(fn):
     def inner(*args, **kwargs):
         logging.info("Calling %s with args %s and kwargs %s", fn, args, kwargs)
         logging.info("Request data is %s", request.get_data())
-        fn(*args, **kwargs)
+        result = fn(*args, **kwargs)
+        logging.info("%s returns %s", fn, result)
+        return result
 
     return inner
 
@@ -64,6 +66,7 @@ def _add_project():
     session.add(proj)
     session.commit()
     return f"New project created with parameters {kwargs}."
+
 
 @_log_call
 def _get_projects():
