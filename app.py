@@ -77,7 +77,7 @@ def _get_projects():
 
 @app.route("/project", methods=["GET", "POST"])
 @_log_call
-def project():
+def project_endpoint():
     if request.method == "GET":
         return _get_projects()
     elif request.method == "POST":
