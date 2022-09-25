@@ -1,10 +1,8 @@
 import functools
-import os
-import sys
 import traceback
 
 from flask import Flask, request
-from sqlalchemy import create_engine, select, Column
+from sqlalchemy import create_engine, Column
 from sqlalchemy.orm import Session
 from typing import List, Dict
 
