@@ -64,7 +64,7 @@ def _add_project():
     proj = project.Project(**kwargs)
     session.add(proj)
     session.commit()
-    return f"New project created with parameters {kwargs}."
+    return f"New project {project} created successfully!"
 
 
 @_log_call
