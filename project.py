@@ -14,7 +14,7 @@ class Project(Base):
     def __repr__(self):
         return f"{self.name}, location: {self.path}"
 
-    def as_dict(self) -> Dict[str, str]:
+    def as_dict(self) -> Dict[str, Column]:
         return {
             "name": self.name,
             "path": self.path

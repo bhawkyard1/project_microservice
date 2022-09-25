@@ -4,8 +4,9 @@ import sys
 import traceback
 
 from flask import Flask, request
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, Column
 from sqlalchemy.orm import Session
+from typing import List, Dict
 
 import project
 
@@ -48,12 +49,12 @@ def _log_call(fn):
 
 @app.route("/", methods=["GET"])
 @_log_call
-def main():
+def main() -> str:
     return "Hello World!"
 
 
 @_log_call
-def _add_project():
+def _add_project() -> str:
     session = Session(engine)
     data = request.get_json()
     logging.info("Adding a new project %s", data)
@@ -68,7 +69,7 @@ def _add_project():
 
 
 @_log_call
-def _get_projects():
+def _get_projects() -> List[Dict[str, Column]]:
     session = Session(engine)
     params = {k: request.args[k] for k in ("name", "path") if k in request.args}
     matches = session.query(project.Project).filter_by(**params)
