@@ -72,7 +72,7 @@ def _get_projects():
     session = Session(engine)
     params = {k: request.args[k] for k in ("name", "path") if k in request.args}
     matches = session.query(project.Project).filter_by(**params)
-    return [{"name": p.name, "path": p.path} for p in matches]
+    return [p.as_dict() for p in matches]
 
 
 @app.route("/project", methods=["GET", "POST"])
